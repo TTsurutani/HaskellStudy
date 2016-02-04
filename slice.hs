@@ -8,23 +8,19 @@ module Foo where
 
 chunk :: (a->Bool)->[a]->[a]
 chunk _ [] = []
-chunk f [x] 
+chunk f (x:xs)
  | f x = [x]
- | otherwise = []
-chunk f (x:y:zs)
- | f x = [x]
- | f y = [x,y]
- | otherwise = x:y: chunk f zs
+ | otherwise = x: chunk f xs
+
 
 chunkRest :: (a->Bool)->[a]->[a]
 chunkRest _ [] = []
 chunkRest f [x] 
  | f x = []
  | otherwise = [x]
-chunkRest f (x:y:zs)
- | f x = y:zs
- | f y = zs
- | otherwise = chunkRest f zs
+chunkRest f (x:xs)
+ | f x = xs
+ | otherwise = chunkRest f xs
 
 sliceAfter:: (a->Bool) ->[a] -> [[a]]
 sliceAfter _ [] = []
