@@ -15,9 +15,6 @@ chunk f (x:xs)
 
 chunkRest :: (a->Bool)->[a]->[a]
 chunkRest _ [] = []
-chunkRest f [x] 
- | f x = []
- | otherwise = [x]
 chunkRest f (x:xs)
  | f x = xs
  | otherwise = chunkRest f xs
