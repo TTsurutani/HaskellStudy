@@ -21,4 +21,4 @@ chunkRest f (x:xs)
 
 sliceAfter:: (a->Bool) ->[a] -> [[a]]
 sliceAfter _ [] = []
-sliceAfter f xs = (chunk f xs) : sliceAfter f (chunkRest f xs)
+sliceAfter f xs = chunk f xs : sliceAfter f (chunkRest f xs)
