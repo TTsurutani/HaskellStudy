@@ -13,7 +13,31 @@ all2::(a->Bool)->[a]->Bool
 all2 _ [] = True
 all2 f (x:xs) = f x && all2 f xs
 
+-- | any
+-- >>> any2 [False,False,False]
+-- False
+-- >>> any2 [False,True,False]
+-- True
+
+any2::[Bool]->Bool
 {-
+any2 [] = False
+any2 (x:xs)
+ | x          = True
+ | otherwise  = any2 xs
+-}
+any2 = foldr False or
+-- | any3 すべての要素が偽である場合に false を返します。
+-- >>> any3 (>3) [1,2,3]
+-- False
+-- >>> any3 (>1) [1,2,3]
+-- True
+
+any3::(a->Bool)->[a]->Bool
+any3 f xs = any2(map f xs)
+
+{-
+http://docs.ruby-lang.org/ja/2.3.0/class/Enumerable.html
 all? 
 any? 
 chunk 
@@ -66,5 +90,4 @@ take
 take_while 
 to_h 
 zip
-
--} 
+-}
