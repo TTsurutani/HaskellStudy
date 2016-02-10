@@ -1,8 +1,8 @@
 module Chunk where
 
-onepuls :: Num a b => (a,b) -> Bool
+oneplus :: (Num a,Eq a) => (a,a) -> Bool
 
-onepuls (x,y)
+oneplus (x,y)
  | x + 1 == y = True
  | otherwise = False
 -- 隣り合う値を評価し、評価値が偽になるところでチャンクを区切る
