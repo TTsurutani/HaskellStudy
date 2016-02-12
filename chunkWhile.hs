@@ -4,6 +4,10 @@ module Chunk where
 -- >>> chunkWhile oneplus [1,2,4,9,10,11,12,15,16,19,20,21]
 -- [[1,2],[4],[9,10,11,12],[15,16],[19,20,21]]
 
+-- |
+-- >>> chunkWhile oneplus [1,2,4,9,10,11,12,15,16,19,20,21,23]
+-- [[1,2],[4],[9,10,11,12],[15,16],[19,20,21],[23]]
+
 -- | 増加のみの部分配列ごとに分ける。
 -- >>> chunkWhile increase [0,9,2,2,3,2,7,5,9,5]
 -- [[0,9],[2,2,3],[2,7],[5,9],[5]]
@@ -18,6 +22,14 @@ chunkWhile p xs = chunk p xs : chunkWhile p (dropList (chunk p xs) xs)
 -- [1,2]
 -- >>> chunk oneplus [9,10,11,12,15,16,19,20,21]
 -- [9,10,11,12]
+-- >>> chunk oneplus [20,21,23]
+-- [20,21]
+-- >>> chunk oneplus [21,22]
+-- [21,22]
+-- >>> chunk oneplus [21,23]
+-- [21]
+-- >>> chunk oneplus [23]
+-- [23]
 chunk :: (a->a->Bool) -> [a] -> [a]
 chunk _ [] = []
 chunk p [x] = [x]
