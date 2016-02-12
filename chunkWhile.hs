@@ -35,7 +35,7 @@ chunk _ [] = []
 chunk p [x] = [x]
 chunk p [x,y]
  | p x y = [x,y]
- | otherwise = [y]
+ | otherwise = [x]
 chunk p (x:y:zs)
  | p x y = x:chunk p (y:zs)
  | otherwise = [x]
