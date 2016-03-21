@@ -12,6 +12,12 @@ module Chunk where
 -- >>> chunkWhile increase [0,9,2,2,3,2,7,5,9,5]
 -- [[0,9],[2,2,3],[2,7],[5,9],[5]]
 
+-- | 隣り合う偶数同士、奇数同士の部分配列ごとに分ける。
+-- >>> chunkWhile evenPair [7,5,9,2,0,7,9,4,2,0]
+-- [[7,5,9],[2,0],[7,9],[4,2,0]]
+-- >>> chunkWhile evenPair [7,5,9,2,0,7,9,4,2,3]
+-- [[7,5,9],[2,0],[7,9],[4,2],[3]]
+
 chunkWhile :: (Ord a,Eq a) => (a->a->Bool)->[a]->[[a]]
 chunkWhile _ [] = []
 chunkWhile _ [x] = [[x]]
@@ -40,6 +46,7 @@ chunk p (x:y:zs)
  | p x y = x:chunk p (y:zs)
  | otherwise = [x]
 
+-- |
 -- >>> dropList [1,2] [1,2,4,9,10,11,12,15,16,19,20,21]
 -- [4,9,10,11,12,15,16,19,20,21]
 
@@ -72,6 +79,11 @@ increase x y
  | x <= y = True
  | otherwise = False
 
+evenPair :: Int->Int->Bool
+evenPair x y
+ | even x && even y = True
+ | odd x && odd y = True
+ | otherwise = False
 {--
 -- | 条件にマッチするリストを簡約する
 -- >>> formatFromTo [9,10,11,12]
@@ -81,12 +93,4 @@ increase x y
 -- | つなぐ
 -- >>> joit2Char ls
 -- "1,2,4,9-12,15,16,19-21"
-
-
-
-隣り合う偶数同士、奇数同士の部分配列ごとに分ける。
-(Enumerable#chunk を使って実現する事も可能)
-a = [7,5,9,2,0,7,9,4,2,0]
-p a.chunk_while {|i, j| i.even? == j.even? }.to_a
-# => [[7,5,9],[2,0],[7,9],[4,2,0]]
 --}
